@@ -104,4 +104,12 @@ public class ParticipationController {
                 "Participation deleted successfully"
         );
     }
+    @GetMapping("/{id}/progress")
+    public ResponseEntity<Participation> trackProgress(
+            @PathVariable Long id) {
+
+        return ResponseEntity.ok(
+                participationService.trackProgress(id)
+        );
+    }
 }
