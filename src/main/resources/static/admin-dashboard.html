@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>CarbonTrack - Admin Dashboard</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f8f4;
+        }
+
+        .header {
+            background: #1b5e20;
+            color: white;
+            padding: 18px 30px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h2 {
+            margin: 0;
+        }
+
+        .logout {
+            background: white;
+            color: #1b5e20;
+            border: none;
+            padding: 9px 16px;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1250px;
+            margin: auto;
+            padding: 30px;
+        }
+
+        .welcome h1 {
+            color: #1b5e20;
+            margin-bottom: 5px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(210px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+
+            box-shadow:
+                    0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .card h3 {
+            color: #2e7d32;
+            margin-top: 0;
+        }
+
+        .value {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .section {
+            background: white;
+            margin-top: 25px;
+            padding: 25px;
+            border-radius: 12px;
+
+            box-shadow:
+                    0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .section h2 {
+            color: #1b5e20;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 11px;
+            margin: 6px 0;
+
+            border: 1px solid #ccc;
+            border-radius: 7px;
+
+            font-family: Arial, sans-serif;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        button.action {
+            background: #2e7d32;
+            color: white;
+            border: none;
+
+            padding: 10px 18px;
+            margin-top: 8px;
+
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        button.action:hover {
+            background: #1b5e20;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th,
+        td {
+            padding: 11px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #e8f5e9;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        #challengeMessage {
+            margin-top: 12px;
+            color: #1b5e20;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<header class="header">
+
+    <h2>🌱 CarbonTrack Admin</h2>
+
+    <button class="logout"
+            onclick="logout()">
+        Logout
+    </button>
+
+</header>
+
+
+<div class="container">
+
+    <div class="welcome">
+
+        <h1>
+            Admin Dashboard
+        </h1>
+
+        <p>
+            Manage CarbonTrack community activities
+            and challenges.
+        </p>
+
+    </div>
+
+
+    <!-- Summary Cards -->
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h3>👥 Users</h3>
+
+            <div class="value"
+                 id="userCount">
+                -
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>🏠 Households</h3>
+
+            <div class="value"
+                 id="householdCount">
+                -
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>📋 Activities</h3>
+
+            <div class="value"
+                 id="activityCount">
+                -
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>🏆 Challenges</h3>
+
+            <div class="value"
+                 id="challengeCount">
+                -
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Households -->
+
+    <div class="section">
+
+        <h2>Household Management</h2>
+
+        <div class="table-container"
+             id="householdTable">
+
+            Loading households...
+
+        </div>
+
+    </div>
+
+
+    <!-- Activities -->
+
+    <div class="section">
+
+        <h2>Activity Logs</h2>
+
+        <div class="table-container"
+             id="activityTable">
+
+            Loading activities...
+
+        </div>
+
+    </div>
+
+
+    <!-- Create Challenge -->
+
+    <div class="section">
+
+        <h2>Create Community Challenge</h2>
+
+        <form id="challengeForm">
+
+            <input
+                    type="text"
+                    id="challengeName"
+                    placeholder="Challenge Name"
+                    required
+            >
+
+            <textarea
+                    id="description"
+                    placeholder="Challenge Description"
+                    required
+            ></textarea>
+
+            <input
+                    type="number"
+                    id="targetReduction"
+                    placeholder="Target Reduction (%)"
+                    min="1"
+                    max="100"
+                    step="0.01"
+                    required
+            >
+
+            <input
+                    type="date"
+                    id="startDate"
+                    required
+            >
+
+            <input
+                    type="date"
+                    id="endDate"
+                    required
+            >
+
+            <button
+                    class="action"
+                    type="submit">
+
+                Create Challenge
+
+            </button>
+
+        </form>
+
+        <div id="challengeMessage"></div>
+
+    </div>
+
+
+    <!-- Challenges -->
+
+    <div class="section">
+
+        <h2>Existing Challenges</h2>
+
+        <div class="table-container"
+             id="challengeTable">
+
+            Loading challenges...
+
+        </div>
+
+    </div>
+
+
+    <!-- Participations -->
+
+    <div class="section">
+
+        <h2>Household Participation</h2>
+
+        <div class="table-container"
+             id="participationTable">
+
+            Loading participation data...
+
+        </div>
+
+    </div>
+
+
+    <!-- Leaderboard -->
+
+    <div class="section">
+
+        <h2>Monthly Reduction Leaderboard</h2>
+
+        <div class="table-container"
+             id="leaderboardTable">
+
+            Loading leaderboard...
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    const API =
+        "http://localhost:8080/api";
+
+
+    const userRole =
+        localStorage.getItem("userRole");
+
+
+    if (userRole !== "ADMIN") {
+
+        window.location.href =
+            "index.html";
+
+    }
+
+
+    // Load Users
+
+    async function loadUsers() {
+
+        try {
+
+            const response =
+                await fetch(
+                    API + "/users"
+                );
+
+            const users =
+                await response.json();
+
+            document.getElementById(
+                "userCount"
+            ).innerText =
+                users.length;
+
+        } catch (error) {
+
+            console.log(error);
+
+        }
+    }
+
+
+    // Load Households
+
+    async function loadHouseholds() {
+
+        try {
+
+            const response =
+                await fetch(
+                    API + "/households"
+                );
+
+            const households =
+                await response.json();
+
+            document.getElementById(
+                "householdCount"
+            ).innerText =
+                households.length;
+
+
+            if (households.length === 0) {
+
+                document.getElementById(
+                    "householdTable"
+                ).innerText =
+                    "No households found.";
+
+                return;
+            }
+
+
+            let html = `
+
+                <table>
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Members</th>
+                        <th>User ID</th>
+
+                    </tr>
+            `;
+
+
+            households.forEach(
+                function(household) {
+
+                    html += `
+
+                        <tr>
+
+                            <td>
+                                ${household.id}
+                            </td>
+
+                            <td>
+                                ${household.householdName}
+                            </td>
+
+                            <td>
+                                ${household.address}
+                            </td>
+
+                            <td>
+                                ${household.members}
+                            </td>
+
+                            <td>
+                                ${household.userId}
+                            </td>
+
+                        </tr>
+                    `;
+                }
+            );
+
+
+            html += "</table>";
+
+
+            document.getElementById(
+                "householdTable"
+            ).innerHTML =
+                html;
+
+        } catch (error) {
+
+            console.log(error);
+
+        }
+    }
+
+
+    // Load Activities
+
+    async function loadActivities() {
+
+        try {
+
+            const response =
+                await fetch(
+                    API + "/activities"
+                );
+
+            const activities =
+                await response.json();
+
+
+            document.getElementById(
+                "activityCount"
+            ).innerText =
+                activities.length;
+
+
+            if (activities.length === 0) {
+
+                document.getElementById(
+                    "activityTable"
+                ).innerText =
+                    "No activity logs found.";
+
+                return;
+            }
+
+
+            let html = `
+
+                <table>
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Household ID</th>
+                        <th>Activity</th>
+                        <th>Quantity</th>
+                        <th>Date</th>
+
+                    </tr>
+            `;
+
+
+            activities.forEach(
+                function(activity) {
+
+                    html += `
+
+                        <tr>
+
+                            <td>
+                                ${activity.id}
+                            </td>
+
+                            <td>
+                                ${activity.householdId}
+                            </td>
+
+                            <td>
+                                ${activity.activityType}
+                            </td>
+
+                            <td>
+                                ${activity.quantity}
+                            </td>
+
+                            <td>
+                                ${activity.activityDate}
+                            </td>
+
+                        </tr>
+                    `;
+                }
+            );
+
+
+            html += "</table>";
+
+
+            document.getElementById(
+                "activityTable"
+            ).innerHTML =
+                html;
+
+        } catch (error) {
+
+            console.log(error);
+
+        }
+    }
+
+
+    // Create Challenge
+
+    document.getElementById(
+        "challengeForm"
+    ).addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            const challengeName =
+                document.getElementById(
+                    "challengeName"
+                ).value;
+
+
+            const description =
+                document.getElementById(
+                    "description"
+                ).value;
+
+
+            const targetReduction =
+                document.getElementById(
+                    "targetReduction"
+                ).value;
+
+
+            const startDate =
+                document.getElementById(
+                    "startDate"
+                ).value;
+
+
+            const endDate =
+                document.getElementById(
+                    "endDate"
+                ).value;
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        API + "/challenges",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+
+                                challengeName:
+                                challengeName,
+
+                                description:
+                                description,
+
+                                targetReduction:
+                                    Number(
+                                        targetReduction
+                                    ),
+
+                                startDate:
+                                startDate,
+
+                                endDate:
+                                endDate
+
+                            })
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (!response.ok) {
+
+                    document.getElementById(
+                        "challengeMessage"
+                    ).innerText =
+                        data.error ||
+                        "Unable to create challenge.";
+
+                    return;
+                }
+
+
+                document.getElementById(
+                    "challengeMessage"
+                ).innerText =
+                    "Challenge created successfully.";
+
+
+                document.getElementById(
+                    "challengeForm"
+                ).reset();
+
+
+                loadChallenges();
+
+            } catch (error) {
+
+                document.getElementById(
+                    "challengeMessage"
+                ).innerText =
+                    "Unable to connect to server.";
+
+            }
+
+        }
+    );
+
+
+    // Load Challenges
+
+    async function loadChallenges() {
+
+        try {
+
+            const response =
+                await fetch(
+                    API + "/challenges"
+                );
+
+            const challenges =
+                await response.json();
+
+
+            document.getElementById(
+                "challengeCount"
+            ).innerText =
+                challenges.length;
+
+
+            if (challenges.length === 0) {
+
+                document.getElementById(
+                    "challengeTable"
+                ).innerText =
+                    "No challenges found.";
+
+                return;
+            }
+
+
+            let html = `
+
+                <table>
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Target</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+
+                    </tr>
+            `;
+
+
+            challenges.forEach(
+                function(challenge) {
+
+                    html += `
+
+                        <tr>
+
+                            <td>
+                                ${challenge.id}
+                            </td>
+
+                            <td>
+                                ${challenge.challengeName}
+                            </td>
+
+                            <td>
+                                ${challenge.targetReduction}%
+                            </td>
+
+                            <td>
+                                ${challenge.startDate}
+                            </td>
+
+                            <td>
+                                ${challenge.endDate}
+                            </td>
+
+                        </tr>
+                    `;
+                }
+            );
+
+
+            html += "</table>";
+
+
+            document.getElementById(
+                "challengeTable"
+            ).innerHTML =
+                html;
+
+        } catch (error) {
+
+            console.log(error);
+
+        }
+    }
+
+
+    // Load Participations
+
+    async function loadParticipations() {
+
+        try {
+
+            const response =
+                await fetch(
+                    API + "/participations"
+                );
+
+            const participations =
+                await response.json();
+
+
+            if (participations.length === 0) {
+
+                document.getElementById(
+                    "participationTable"
+                ).innerText =
+                    "No participation records found.";
+
+                return;
+            }
+
+
+            let html = `
+
+                <table>
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Household ID</th>
+                        <th>Challenge ID</th>
+                        <th>Progress</th>
+                        <th>Status</th>
+
+                    </tr>
+            `;
+
+
+            participations.forEach(
+                function(participation) {
+
+                    html += `
+
+                        <tr>
+
+                            <td>
+                                ${participation.id}
+                            </td>
+
+                            <td>
+                                ${participation.householdId}
+                            </td>
+
+                            <td>
+                                ${participation.challengeId}
+                            </td>
+
+                            <td>
+                                ${participation.progressPercentage}%
+                            </td>
+
+                            <td>
+                                ${participation.status}
+                            </td>
+
+                        </tr>
+                    `;
+                }
+            );
+
+
+            html += "</table>";
+
+
+            document.getElementById(
+                "participationTable"
+            ).innerHTML =
+                html;
+
+        } catch (error) {
+
+            console.log(error);
+
+        }
+    }
+
+
+    // Load Leaderboard
+
+    async function loadLeaderboard() {
+
+        try {
+
+            const response =
+                await fetch(
+                    API + "/leaderboard"
+                );
+
+            const data =
+                await response.json();
+
+
+            if (data.length === 0) {
+
+                document.getElementById(
+                    "leaderboardTable"
+                ).innerText =
+                    "Leaderboard data will appear after monthly activity is recorded.";
+
+                return;
+            }
+
+
+            let html = `
+
+                <table>
+
+                    <tr>
+
+                        <th>Rank</th>
+                        <th>Household ID</th>
+                        <th>Previous Footprint</th>
+                        <th>Current Footprint</th>
+                        <th>Reduction</th>
+
+                    </tr>
+            `;
+
+
+            data.forEach(
+                function(item, index) {
+
+                    html += `
+
+                        <tr>
+
+                            <td>
+                                ${index + 1}
+                            </td>
+
+                            <td>
+                                ${item.householdId}
+                            </td>
+
+                            <td>
+                                ${item.previousMonthFootprint}
+                                kg
+                            </td>
+
+                            <td>
+                                ${item.currentMonthFootprint}
+                                kg
+                            </td>
+
+                            <td>
+                                ${item.reductionPercentage}%
+                            </td>
+
+                        </tr>
+                    `;
+                }
+            );
+
+
+            html += "</table>";
+
+
+            document.getElementById(
+                "leaderboardTable"
+            ).innerHTML =
+                html;
+
+        } catch (error) {
+
+            console.log(error);
+
+        }
+    }
+
+
+    function logout() {
+
+        localStorage.clear();
+
+        window.location.href =
+            "index.html";
+
+    }
+
+
+    loadUsers();
+
+    loadHouseholds();
+
+    loadActivities();
+
+    loadChallenges();
+
+    loadParticipations();
+
+    loadLeaderboard();
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>CarbonTrack - Household Dashboard</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f8f4;
+        }
+
+        .header {
+            background: #1b5e20;
+            color: white;
+            padding: 18px 30px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h2 {
+            margin: 0;
+        }
+
+        .logout {
+            background: white;
+            color: #1b5e20;
+            border: none;
+            padding: 9px 16px;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .container {
+            padding: 30px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .welcome {
+            margin-bottom: 25px;
+        }
+
+        .welcome h1 {
+            color: #1b5e20;
+            margin-bottom: 5px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(220px, 1fr));
+
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+
+            box-shadow:
+                    0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: #2e7d32;
+        }
+
+        .value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .section {
+            background: white;
+            margin-top: 25px;
+            padding: 25px;
+            border-radius: 12px;
+
+            box-shadow:
+                    0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .section h2 {
+            color: #1b5e20;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 11px;
+            margin: 6px 0;
+
+            border: 1px solid #ccc;
+            border-radius: 7px;
+        }
+
+        button.action {
+            background: #2e7d32;
+            color: white;
+            border: none;
+
+            padding: 11px 18px;
+            margin-top: 8px;
+
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        button.action:hover {
+            background: #1b5e20;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th,
+        td {
+            padding: 11px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #e8f5e9;
+        }
+
+        #message {
+            margin-top: 10px;
+            color: #1b5e20;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<header class="header">
+
+    <h2>🌱 CarbonTrack</h2>
+
+    <button class="logout"
+            onclick="logout()">
+        Logout
+    </button>
+
+</header>
+
+<div class="container">
+
+    <div class="welcome">
+
+        <h1 id="welcomeText">
+            Welcome!
+        </h1>
+
+        <p>
+            Track your household's carbon footprint
+            and participate in green challenges.
+        </p>
+
+    </div>
+
+
+    <!-- Dashboard Cards -->
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h3>🏠 Household</h3>
+
+            <div class="value"
+                 id="householdName">
+                -
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>👨‍👩‍👧 Members</h3>
+
+            <div class="value"
+                 id="memberCount">
+                -
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>🌍 Carbon Footprint</h3>
+
+            <div class="value"
+                 id="carbonFootprint">
+                -
+            </div>
+
+            <p>kg CO₂</p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>🏆 Challenge Progress</h3>
+
+            <div class="value"
+                 id="challengeProgress">
+                -
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Household Section -->
+
+    <div class="section">
+
+        <h2>My Household</h2>
+
+        <p>
+            <strong>Name:</strong>
+            <span id="displayHouseholdName">-</span>
+        </p>
+
+        <p>
+            <strong>Address:</strong>
+            <span id="displayAddress">-</span>
+        </p>
+
+        <p>
+            <strong>Members:</strong>
+            <span id="displayMembers">-</span>
+        </p>
+
+    </div>
+
+
+    <!-- Activity Section -->
+
+    <div class="section">
+
+        <h2>Log Daily Activity</h2>
+
+        <form id="activityForm">
+
+            <select id="activityType"
+                    required>
+
+                <option value="">
+                    Select Activity
+                </option>
+
+                <option value="ELECTRICITY">
+                    Electricity
+                </option>
+
+                <option value="CAR">
+                    Car
+                </option>
+
+                <option value="BUS">
+                    Bus
+                </option>
+
+                <option value="BIKE">
+                    Bike
+                </option>
+
+                <option value="WALKING">
+                    Walking
+                </option>
+
+                <option value="WASTE">
+                    Waste
+                </option>
+
+            </select>
+
+            <input
+                    type="number"
+                    id="quantity"
+                    placeholder="Quantity"
+                    min="0.01"
+                    step="0.01"
+                    required
+            >
+
+            <input
+                    type="date"
+                    id="activityDate"
+                    required
+            >
+
+            <button
+                    class="action"
+                    type="submit">
+                Add Activity
+            </button>
+
+        </form>
+
+        <div id="activityMessage"></div>
+
+    </div>
+
+
+    <!-- Challenges -->
+
+    <div class="section">
+
+        <h2>Available Challenges</h2>
+
+        <div id="challengeList">
+            Loading challenges...
+        </div>
+
+    </div>
+
+
+    <!-- Leaderboard -->
+
+    <div class="section">
+
+        <h2>Monthly Reduction Leaderboard</h2>
+
+        <div id="leaderboard">
+            Loading leaderboard...
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    const API =
+        "http://localhost:8080/api";
+
+    const userId =
+        localStorage.getItem("userId");
+
+    const userName =
+        localStorage.getItem("userName");
+
+
+    if (!userId) {
+
+        window.location.href =
+            "index.html";
+    }
+
+
+    document.getElementById(
+        "welcomeText"
+    ).innerText =
+        "Welcome, " + userName + "!";
+
+
+    let householdId = null;
+
+
+    // Load Household
+
+    async function loadHousehold() {
+
+        try {
+
+            const response =
+                await fetch(
+                    API + "/households/user/" + userId
+                );
+
+            const households =
+                await response.json();
+
+            if (households.length === 0) {
+
+                document.getElementById(
+                    "householdName"
+                ).innerText =
+                    "Not created";
+
+                return;
+            }
+
+            const household =
+                households[0];
+
+            householdId =
+                household.id;
+
+            document.getElementById(
+                "householdName"
+            ).innerText =
+                household.householdName;
+
+            document.getElementById(
+                "memberCount"
+            ).innerText =
+                household.members;
+
+            document.getElementById(
+                "displayHouseholdName"
+            ).innerText =
+                household.householdName;
+
+            document.getElementById(
+                "displayAddress"
+            ).innerText =
+                household.address;
+
+            document.getElementById(
+                "displayMembers"
+            ).innerText =
+                household.members;
+
+            loadCarbon();
+
+        } catch (error) {
+
+            console.log(error);
+
+        }
+    }
+
+
+    // Load Carbon Footprint
+
+    async function loadCarbon() {
+
+        if (!householdId) {
+            return;
+        }
+
+        try {
+
+            const response =
+                await fetch(
+                    API +
+                    "/carbon/household/" +
+                    householdId
+                );
+
+            const carbon =
+                await response.json();
+
+            document.getElementById(
+                "carbonFootprint"
+            ).innerText =
+                Number(carbon).toFixed(2);
+
+        } catch (error) {
+
+            console.log(error);
+
+        }
+    }
+
+
+    // Add Activity
+
+    document.getElementById(
+        "activityForm"
+    ).addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+            if (!householdId) {
+
+                document.getElementById(
+                    "activityMessage"
+                ).innerText =
+                    "Create a household first.";
+
+                return;
+            }
+
+            const activityType =
+                document.getElementById(
+                    "activityType"
+                ).value;
+
+            const quantity =
+                document.getElementById(
+                    "quantity"
+                ).value;
+
+            const activityDate =
+                document.getElementById(
+                    "activityDate"
+                ).value;
+
+            try {
+
+                const response =
+                    await fetch(
+                        API + "/activities",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+
+                                householdId:
+                                householdId,
+
+                                activityType:
+                                activityType,
+
+                                quantity:
+                                    Number(quantity),
+
+                                activityDate:
+                                activityDate
+                            })
+                        }
+                    );
+
+                const data =
+                    await response.json();
+
+                if (!response.ok) {
+
+                    document.getElementById(
+                        "activityMessage"
+                    ).innerText =
+                        data.error ||
+                        "Unable to add activity.";
+
+                    return;
+                }
+
+                document.getElementById(
+                    "activityMessage"
+                ).innerText =
+                    "Activity added successfully.";
+
+                document.getElementById(
+                    "activityForm"
+                ).reset();
+
+                loadCarbon();
+
+            } catch (error) {
+
+                document.getElementById(
+                    "activityMessage"
+                ).innerText =
+                    "Unable to connect to server.";
+
+            }
+
+        }
+    );
+
+
+    // Load Challenges
+
+    async function loadChallenges() {
+
+        try {
+
+            const response =
+                await fetch(
+                    API + "/challenges"
+                );
+
+            const challenges =
+                await response.json();
+
+            const container =
+                document.getElementById(
+                    "challengeList"
+                );
+
+            container.innerHTML = "";
+
+            if (challenges.length === 0) {
+
+                container.innerText =
+                    "No challenges available.";
+
+                return;
+            }
+
+            challenges.forEach(
+                function(challenge) {
+
+                    const div =
+                        document.createElement(
+                            "div"
+                        );
+
+                    div.className =
+                        "card";
+
+                    div.style.marginTop =
+                        "15px";
+
+                    div.innerHTML = `
+
+                        <h3>
+                            ${challenge.challengeName}
+                        </h3>
+
+                        <p>
+                            ${challenge.description}
+                        </p>
+
+                        <p>
+                            Target Reduction:
+                            <strong>
+                                ${challenge.targetReduction}%
+                            </strong>
+                        </p>
+
+                        <p>
+                            ${challenge.startDate}
+                            →
+                            ${challenge.endDate}
+                        </p>
+
+                        <button
+                            class="action"
+                            onclick="joinChallenge(${challenge.id})">
+
+                            Join Challenge
+
+                        </button>
+                    `;
+
+                    container.appendChild(div);
+
+                }
+            );
+
+        } catch (error) {
+
+            console.log(error);
+
+        }
+    }
+
+
+    // Join Challenge
+
+    async function joinChallenge(challengeId) {
+
+        if (!householdId) {
+
+            alert(
+                "Create a household first."
+            );
+
+            return;
+        }
+
+        try {
+
+            const response =
+                await fetch(
+                    API + "/participations",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+
+                            householdId:
+                            householdId,
+
+                            challengeId:
+                            challengeId,
+
+                            progressPercentage:
+                                0,
+
+                            status:
+                                "JOINED"
+                        })
+                    }
+                );
+
+            const data =
+                await response.json();
+
+            if (!response.ok) {
+
+                alert(
+                    data.error ||
+                    "Unable to join challenge."
+                );
+
+                return;
+            }
+
+            alert(
+                "Challenge joined successfully!"
+            );
+
+            loadProgress();
+
+        } catch (error) {
+
+            alert(
+                "Unable to connect to server."
+            );
+
+        }
+    }
+
+
+    // Load Challenge Progress
+
+    async function loadProgress() {
+
+        if (!householdId) {
+            return;
+        }
+
+        try {
+
+            const response =
+                await fetch(
+                    API +
+                    "/participations/household/" +
+                    householdId
+                );
+
+            const participations =
+                await response.json();
+
+            if (participations.length === 0) {
+
+                document.getElementById(
+                    "challengeProgress"
+                ).innerText =
+                    "0%";
+
+                return;
+            }
+
+            const participation =
+                participations[0];
+
+            document.getElementById(
+                "challengeProgress"
+            ).innerText =
+                participation.progressPercentage +
+                "%";
+
+        } catch (error) {
+
+            console.log(error);
+
+        }
+    }
+
+
+    // Load Leaderboard
+
+    async function loadLeaderboard() {
+
+        try {
+
+            const response =
+                await fetch(
+                    API + "/leaderboard"
+                );
+
+            const data =
+                await response.json();
+
+            const container =
+                document.getElementById(
+                    "leaderboard"
+                );
+
+            if (data.length === 0) {
+
+                container.innerText =
+                    "Leaderboard data will appear after monthly activity is recorded.";
+
+                return;
+            }
+
+            let html = `
+
+                <table>
+
+                    <tr>
+                        <th>Rank</th>
+                        <th>Household</th>
+                        <th>Previous Footprint</th>
+                        <th>Current Footprint</th>
+                        <th>Reduction</th>
+                    </tr>
+            `;
+
+            data.forEach(
+                function(item, index) {
+
+                    html += `
+
+                        <tr>
+
+                            <td>
+                                ${index + 1}
+                            </td>
+
+                            <td>
+                                Household
+                                ${item.householdId}
+                            </td>
+
+                            <td>
+                                ${item.previousMonthFootprint}
+                                kg
+                            </td>
+
+                            <td>
+                                ${item.currentMonthFootprint}
+                                kg
+                            </td>
+
+                            <td>
+                                ${item.reductionPercentage}%
+                            </td>
+
+                        </tr>
+                    `;
+                }
+            );
+
+            html += "</table>";
+
+            container.innerHTML =
+                html;
+
+        } catch (error) {
+
+            console.log(error);
+
+        }
+    }
+
+
+    function logout() {
+
+        localStorage.clear();
+
+        window.location.href =
+            "index.html";
+    }
+
+
+    loadHousehold();
+
+    loadChallenges();
+
+    loadProgress();
+
+    loadLeaderboard();
+
+</script>
+
+</body>
+
+</html>
