@@ -16,67 +16,147 @@ public class HouseholdService {
         this.householdRepository = householdRepository;
     }
 
-    // CREATE
+
+    // ==============================
+    // CREATE HOUSEHOLD
+    // ==============================
+
     public Household createHousehold(Household household) {
 
         if (household.getMembers() <= 0) {
-            throw new RuntimeException("Number of members must be greater than zero");
+
+            throw new RuntimeException(
+                    "Number of members must be greater than zero"
+            );
         }
+
+
+        // Check whether this user already has a household
+
+        List<Household> existingHouseholds =
+                householdRepository.findByUserId(
+                        household.getUserId()
+                );
+
+
+        if (!existingHouseholds.isEmpty()) {
+
+            throw new RuntimeException(
+                    "This user already has a household. Please update the existing household."
+            );
+        }
+
 
         return householdRepository.save(household);
     }
 
-    // READ - All households
+
+    // ==============================
+    // GET ALL HOUSEHOLDS
+    // ==============================
+
     public List<Household> getAllHouseholds() {
+
         return householdRepository.findAll();
+
     }
 
-    // READ - One household
+
+    // ==============================
+    // GET HOUSEHOLD BY ID
+    // ==============================
+
     public Optional<Household> getHouseholdById(Long id) {
+
         return householdRepository.findById(id);
+
     }
 
-    // READ - Households by User
+
+    // ==============================
+    // GET HOUSEHOLDS BY USER ID
+    // ==============================
+
     public List<Household> getHouseholdsByUserId(Long userId) {
+
         return householdRepository.findByUserId(userId);
+
     }
 
-    // UPDATE
-    public Household updateHousehold(Long id, Household updatedHousehold) {
 
-        Household existingHousehold = householdRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Household not found"));
+    // ==============================
+    // UPDATE HOUSEHOLD
+    // ==============================
+
+    public Household updateHousehold(
+            Long id,
+            Household updatedHousehold) {
+
+
+        Household existingHousehold =
+                householdRepository.findById(id)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Household not found"
+                                )
+                        );
+
 
         if (updatedHousehold.getMembers() <= 0) {
-            throw new RuntimeException("Number of members must be greater than zero");
+
+            throw new RuntimeException(
+                    "Number of members must be greater than zero"
+            );
+
         }
+
 
         existingHousehold.setHouseholdName(
                 updatedHousehold.getHouseholdName()
         );
 
+
         existingHousehold.setAddress(
                 updatedHousehold.getAddress()
         );
+
 
         existingHousehold.setMembers(
                 updatedHousehold.getMembers()
         );
 
+
+        // Keep the original user ID
+
         existingHousehold.setUserId(
-                updatedHousehold.getUserId()
+                existingHousehold.getUserId()
         );
 
-        return householdRepository.save(existingHousehold);
+
+        return householdRepository.save(
+                existingHousehold
+        );
+
     }
 
-    // DELETE
+
+    // ==============================
+    // DELETE HOUSEHOLD
+    // ==============================
+
     public void deleteHousehold(Long id) {
 
         if (!householdRepository.existsById(id)) {
-            throw new RuntimeException("Household not found");
+
+            throw new RuntimeException(
+                    "Household not found"
+            );
+
         }
 
+
         householdRepository.deleteById(id);
+
     }
+
 }

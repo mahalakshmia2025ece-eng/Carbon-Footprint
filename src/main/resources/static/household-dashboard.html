@@ -2,12 +2,13 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>CarbonTrack - Household Dashboard</title>
+
 
     <style>
 
@@ -15,452 +16,2424 @@
             box-sizing: border-box;
         }
 
+
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: #f4f8f4;
+            background: #f4f7f6;
+            color: #333;
         }
 
-        .header {
-            background: #1b5e20;
-            color: white;
-            padding: 18px 30px;
 
+        /* ==============================
+           HEADER
+           ============================== */
+
+        header {
+            background: #176b4d;
+            color: white;
+            padding: 18px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .header h2 {
+
+        header h1 {
             margin: 0;
+            font-size: 25px;
         }
 
-        .logout {
+
+        header button {
             background: white;
-            color: #1b5e20;
+            color: #176b4d;
             border: none;
-            padding: 9px 16px;
-            border-radius: 7px;
+            padding: 10px 18px;
+            border-radius: 6px;
             cursor: pointer;
+            font-weight: bold;
         }
+
+
+        /* ==============================
+           CONTAINER
+           ============================== */
 
         .container {
-            padding: 30px;
-            max-width: 1200px;
-            margin: auto;
+            width: 92%;
+            max-width: 1250px;
+            margin: 25px auto;
         }
+
+
+        /* ==============================
+           WELCOME
+           ============================== */
 
         .welcome {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
-        .welcome h1 {
-            color: #1b5e20;
+
+        .welcome h2 {
             margin-bottom: 5px;
+            color: #176b4d;
         }
+
+
+        /* ==============================
+           CARDS
+           ============================== */
 
         .cards {
             display: grid;
-            grid-template-columns:
-                repeat(auto-fit, minmax(220px, 1fr));
-
-            gap: 20px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
         }
+
 
         .card {
             background: white;
             padding: 22px;
-            border-radius: 12px;
-
-            box-shadow:
-                    0 4px 15px rgba(0, 0, 0, 0.08);
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
+
 
         .card h3 {
             margin-top: 0;
-            color: #2e7d32;
+            color: #176b4d;
         }
+
 
         .value {
             font-size: 28px;
             font-weight: bold;
-            color: #333;
+            margin-top: 10px;
         }
+
+
+        /* ==============================
+           SECTIONS
+           ============================== */
 
         .section {
             background: white;
-            margin-top: 25px;
             padding: 25px;
-            border-radius: 12px;
-
-            box-shadow:
-                    0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
+
 
         .section h2 {
-            color: #1b5e20;
+            color: #176b4d;
+            margin-top: 0;
+            margin-bottom: 20px;
         }
+
+
+        /* ==============================
+           FORM
+           ============================== */
+
+        form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
 
         input,
         select {
             width: 100%;
-            padding: 11px;
-            margin: 6px 0;
-
+            padding: 12px;
             border: 1px solid #ccc;
-            border-radius: 7px;
+            border-radius: 6px;
+            font-size: 14px;
         }
 
-        button.action {
-            background: #2e7d32;
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+
+        .form-buttons {
+            grid-column: 1 / -1;
+            display: flex;
+            gap: 10px;
+        }
+
+
+        /* ==============================
+           BUTTONS
+           ============================== */
+
+        button.primary {
+            background: #176b4d;
             color: white;
             border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
 
-            padding: 11px 18px;
-            margin-top: 8px;
 
-            border-radius: 7px;
+        button.primary:hover {
+            background: #12563e;
+        }
+
+
+        button.secondary {
+            background: #777;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
             cursor: pointer;
         }
 
-        button.action:hover {
-            background: #1b5e20;
+
+        .edit-btn {
+            background: #e0a800;
+            color: white;
+            border: none;
+            padding: 7px 12px;
+            border-radius: 5px;
+            cursor: pointer;
         }
+
+
+        .edit-btn:hover {
+            background: #c58f00;
+        }
+
+
+        .delete-btn {
+            background: #d9534f;
+            color: white;
+            border: none;
+            padding: 7px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+
+        .delete-btn:hover {
+            background: #b52b27;
+        }
+
+
+        .join-btn {
+            background: #176b4d;
+            color: white;
+            border: none;
+            padding: 7px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 2px;
+        }
+
+
+        .join-btn:hover {
+            background: #12563e;
+        }
+
+
+        /* ==============================
+           TABLE
+           ============================== */
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px;
+            margin-top: 10px;
         }
+
 
         th,
         td {
-            padding: 11px;
-            border-bottom: 1px solid #ddd;
-            text-align: left;
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
         }
+
 
         th {
-            background: #e8f5e9;
+            background: #176b4d;
+            color: white;
         }
 
-        #message {
-            margin-top: 10px;
-            color: #1b5e20;
+
+        tr:nth-child(even) {
+            background: #f8f8f8;
+        }
+
+
+        /* ==============================
+           HOUSEHOLD TABLE
+           ============================== */
+
+        .household-details-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+
+        .household-details-table th,
+        .household-details-table td {
+            border: 1px solid #ddd;
+            padding: 14px;
+        }
+
+
+        .household-details-table th {
+            background: #176b4d;
+            color: white;
+            text-align: center;
+        }
+
+
+        .household-details-table td:first-child {
+            font-weight: bold;
+            width: 30%;
+        }
+
+
+        .household-details-table td:nth-child(2) {
+            width: 50%;
+        }
+
+
+        .household-details-table td:nth-child(3) {
+            width: 20%;
+            text-align: center;
+        }
+
+
+        .household-details-table input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid transparent;
+            border-radius: 5px;
+            background: transparent;
+            font-size: 15px;
+        }
+
+
+        .household-details-table input:disabled {
+            color: #333;
+            cursor: not-allowed;
+        }
+
+
+        .household-details-table input.editable {
+            background: white;
+            border: 1px solid #999;
+        }
+
+
+        /* ==============================
+           CREATE HOUSEHOLD
+           ============================== */
+
+        .create-household-box {
+            background: #eef7f2;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+
+        .create-household-box h3 {
+            color: #176b4d;
+            margin-top: 0;
+        }
+
+
+        .create-household-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+
+        .create-household-form .button-area {
+            display: flex;
+            align-items: end;
+        }
+
+
+        /* ==============================
+           MESSAGE
+           ============================== */
+
+        .message {
+            margin-top: 12px;
+            font-weight: bold;
+        }
+
+
+        /* ==============================
+           RESPONSIVE
+           ============================== */
+
+        @media (max-width: 900px) {
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+
+            form {
+                grid-template-columns: 1fr;
+            }
+
+
+            .create-household-form {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 15px;
+            }
+
+
+            .container {
+                width: 95%;
+            }
+
+
+            table {
+                font-size: 12px;
+            }
+
+
+            th,
+            td {
+                padding: 8px;
+            }
+
         }
 
     </style>
 
 </head>
 
+
 <body>
 
-<header class="header">
 
-    <h2>🌱 CarbonTrack</h2>
+<!-- ==============================
+     HEADER
+     ============================== -->
 
-    <button class="logout"
-            onclick="logout()">
+<header>
+
+    <h1>
+        CarbonTrack
+    </h1>
+
+
+    <button onclick="logout()">
         Logout
     </button>
 
 </header>
 
+
+
 <div class="container">
+
+
+    <!-- ==============================
+         WELCOME
+         ============================== -->
 
     <div class="welcome">
 
-        <h1 id="welcomeText">
-            Welcome!
-        </h1>
+        <h2 id="welcomeMessage">
+            Welcome
+        </h2>
 
         <p>
-            Track your household's carbon footprint
-            and participate in green challenges.
+            Manage your household carbon footprint and participate in green challenges.
         </p>
 
     </div>
 
 
-    <!-- Dashboard Cards -->
+
+    <!-- ==============================
+         SUMMARY CARDS
+         ============================== -->
 
     <div class="cards">
 
+
         <div class="card">
 
-            <h3>🏠 Household</h3>
+            <h3>
+                Household
+            </h3>
 
-            <div class="value"
-                 id="householdName">
+            <div
+                    class="value"
+                    id="householdNameCard">
+
                 -
+
             </div>
 
         </div>
 
 
+
         <div class="card">
 
-            <h3>👨‍👩‍👧 Members</h3>
+            <h3>
+                Carbon Footprint
+            </h3>
 
-            <div class="value"
-                 id="memberCount">
-                -
+            <div class="value">
+
+                <span id="carbonValue">
+                    0
+                </span>
+
+                kg
+
             </div>
 
         </div>
 
 
+
         <div class="card">
 
-            <h3>🌍 Carbon Footprint</h3>
+            <h3>
+                Total Activities
+            </h3>
 
-            <div class="value"
-                 id="carbonFootprint">
-                -
+            <div
+                    class="value"
+                    id="activityCount">
+
+                0
+
             </div>
-
-            <p>kg CO₂</p>
 
         </div>
 
 
-        <div class="card">
+    </div>
 
-            <h3>🏆 Challenge Progress</h3>
 
-            <div class="value"
-                 id="challengeProgress">
-                -
-            </div>
 
+    <!-- ==============================
+         HOUSEHOLD DETAILS
+         ============================== -->
+
+    <div class="section">
+
+        <h2>
+            Household Details
+        </h2>
+
+
+        <div id="householdDetails">
+
+            Loading...
+
+        </div>
+
+
+        <!-- UPDATE BUTTONS -->
+
+        <div
+                id="householdUpdateButtons"
+                style="display:none; margin-top:15px;">
+
+            <button
+                    class="primary"
+                    onclick="updateHousehold()">
+
+                Update Household
+
+            </button>
+
+
+            <button
+                    class="secondary"
+                    onclick="cancelHouseholdEdit()">
+
+                Cancel
+
+            </button>
+
+        </div>
+
+
+        <div
+                id="householdMessage"
+                class="message">
         </div>
 
     </div>
 
 
-    <!-- Household Section -->
+
+    <!-- ==============================
+         DAILY ACTIVITY
+         ============================== -->
 
     <div class="section">
 
-        <h2>My Household</h2>
+        <h2>
+            Log Daily Activity
+        </h2>
 
-        <p>
-            <strong>Name:</strong>
-            <span id="displayHouseholdName">-</span>
-        </p>
-
-        <p>
-            <strong>Address:</strong>
-            <span id="displayAddress">-</span>
-        </p>
-
-        <p>
-            <strong>Members:</strong>
-            <span id="displayMembers">-</span>
-        </p>
-
-    </div>
-
-
-    <!-- Activity Section -->
-
-    <div class="section">
-
-        <h2>Log Daily Activity</h2>
 
         <form id="activityForm">
 
-            <select id="activityType"
-                    required>
 
-                <option value="">
-                    Select Activity
-                </option>
+            <div>
 
-                <option value="ELECTRICITY">
-                    Electricity
-                </option>
+                <label>
+                    Activity Type
+                </label>
 
-                <option value="CAR">
-                    Car
-                </option>
 
-                <option value="BUS">
-                    Bus
-                </option>
+                <select
+                        id="activityType"
+                        required>
 
-                <option value="BIKE">
-                    Bike
-                </option>
+                    <option value="">
+                        Select Activity
+                    </option>
 
-                <option value="WALKING">
-                    Walking
-                </option>
+                    <option value="ELECTRICITY">
+                        Electricity
+                    </option>
 
-                <option value="WASTE">
-                    Waste
-                </option>
+                    <option value="CAR">
+                        Car
+                    </option>
 
-            </select>
+                    <option value="BUS">
+                        Bus
+                    </option>
 
-            <input
-                    type="number"
-                    id="quantity"
-                    placeholder="Quantity"
-                    min="0.01"
-                    step="0.01"
-                    required
-            >
+                    <option value="BIKE">
+                        Bike
+                    </option>
 
-            <input
-                    type="date"
-                    id="activityDate"
-                    required
-            >
+                    <option value="WALKING">
+                        Walking
+                    </option>
 
-            <button
-                    class="action"
-                    type="submit">
-                Add Activity
-            </button>
+                    <option value="WASTE">
+                        Waste
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <div>
+
+                <label>
+                    Quantity
+                </label>
+
+
+                <input
+                        type="number"
+                        id="quantity"
+                        step="0.01"
+                        min="0.01"
+                        required
+                        placeholder="Enter quantity">
+
+            </div>
+
+
+
+            <div>
+
+                <label>
+                    Activity Date
+                </label>
+
+
+                <input
+                        type="date"
+                        id="activityDate"
+                        required>
+
+            </div>
+
+
+
+            <div class="form-buttons">
+
+
+                <button
+                        type="submit"
+                        class="primary"
+                        id="activitySubmitButton">
+
+                    Add Activity
+
+                </button>
+
+
+                <button
+                        type="button"
+                        class="secondary"
+                        id="cancelEditButton"
+                        onclick="cancelEdit()"
+                        style="display:none;">
+
+                    Cancel
+
+                </button>
+
+
+            </div>
+
 
         </form>
 
-        <div id="activityMessage"></div>
 
-    </div>
-
-
-    <!-- Challenges -->
-
-    <div class="section">
-
-        <h2>Available Challenges</h2>
-
-        <div id="challengeList">
-            Loading challenges...
+        <div
+                id="activityMessage"
+                class="message">
         </div>
 
     </div>
 
 
-    <!-- Leaderboard -->
+
+    <!-- ==============================
+         ACTIVITIES
+         ============================== -->
 
     <div class="section">
 
-        <h2>Monthly Reduction Leaderboard</h2>
+        <h2>
+            My Daily Activities
+        </h2>
 
-        <div id="leaderboard">
-            Loading leaderboard...
-        </div>
+
+        <table>
+
+            <thead>
+
+            <tr>
+
+                <th>
+                    ID
+                </th>
+
+                <th>
+                    Activity
+                </th>
+
+                <th>
+                    Quantity
+                </th>
+
+                <th>
+                    Date
+                </th>
+
+                <th>
+                    Edit
+                </th>
+
+                <th>
+                    Delete
+                </th>
+
+            </tr>
+
+            </thead>
+
+
+            <tbody id="activityTableBody">
+
+            <tr>
+
+                <td colspan="6">
+                    Loading...
+                </td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
 
     </div>
+
+
+
+    <!-- ==============================
+         COMMUNITY CHALLENGES
+         ============================== -->
+
+    <div class="section">
+
+        <h2>
+            Community Challenges
+        </h2>
+
+
+        <table>
+
+            <thead>
+
+            <tr>
+
+                <th>
+                    ID
+                </th>
+
+                <th>
+                    Challenge
+                </th>
+
+                <th>
+                    Description
+                </th>
+
+                <th>
+                    Target Reduction
+                </th>
+
+                <th>
+                    Start Date
+                </th>
+
+                <th>
+                    End Date
+                </th>
+
+                <th>
+                    Action
+                </th>
+
+            </tr>
+
+            </thead>
+
+
+            <tbody id="challengeTableBody">
+
+            <tr>
+
+                <td colspan="7">
+                    Loading...
+                </td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+
+    <!-- ==============================
+         PARTICIPATION
+         ============================== -->
+
+    <div class="section">
+
+        <h2>
+            My Challenge Participation
+        </h2>
+
+
+        <table>
+
+            <thead>
+
+            <tr>
+
+                <th>
+                    ID
+                </th>
+
+                <th>
+                    Challenge ID
+                </th>
+
+                <th>
+                    Progress
+                </th>
+
+                <th>
+                    Status
+                </th>
+
+                <th>
+                    Actions
+                </th>
+
+            </tr>
+
+            </thead>
+
+
+            <tbody id="participationTableBody">
+
+            <tr>
+
+                <td colspan="5">
+                    Loading...
+                </td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+
+    <!-- ==============================
+         LEADERBOARD
+         ============================== -->
+
+    <div class="section">
+
+        <h2>
+            Monthly Reduction Leaderboard
+        </h2>
+
+
+        <table>
+
+            <thead>
+
+            <tr>
+
+                <th>
+                    Rank
+                </th>
+
+                <th>
+                    Household ID
+                </th>
+
+                <th>
+                    Previous Month
+                </th>
+
+                <th>
+                    Current Month
+                </th>
+
+                <th>
+                    Reduction %
+                </th>
+
+            </tr>
+
+            </thead>
+
+
+            <tbody id="leaderboardTableBody">
+
+            <tr>
+
+                <td colspan="5">
+                    Loading...
+                </td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
 
 </div>
 
 
+
 <script>
+
 
     const API =
         "http://localhost:8080/api";
 
+
+    // ==============================
+    // LOGIN INFORMATION
+    // ==============================
+
     const userId =
         localStorage.getItem("userId");
+
 
     const userName =
         localStorage.getItem("userName");
 
 
-    if (!userId) {
+    const userRole =
+        localStorage.getItem("userRole");
+
+
+
+    // ==============================
+    // ACCESS CHECK
+    // ==============================
+
+    if (!userId || userRole !== "HOUSEHOLD") {
 
         window.location.href =
             "index.html";
+
     }
 
 
-    document.getElementById(
-        "welcomeText"
-    ).innerText =
-        "Welcome, " + userName + "!";
 
+    // ==============================
+    // GLOBAL VARIABLES
+    // ==============================
 
     let householdId = null;
 
+    let editingActivityId = null;
 
-    // Load Household
+
+
+    // ==============================
+    // PAGE LOAD
+    // ==============================
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        async function () {
+
+
+            document.getElementById(
+                "welcomeMessage"
+            ).innerText =
+                "Welcome, " +
+                (userName || "Household User");
+
+
+            document.getElementById(
+                "activityDate"
+            ).value =
+                new Date()
+                    .toISOString()
+                    .split("T")[0];
+
+
+            await loadHousehold();
+
+        }
+    );
+
+
+
+    // ==============================
+    // LOAD HOUSEHOLD
+    // ==============================
 
     async function loadHousehold() {
 
+
         try {
+
 
             const response =
                 await fetch(
-                    API + "/households/user/" + userId
+                    API +
+                    "/households/user/" +
+                    userId
                 );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Failed to load household"
+                );
+
+            }
+
 
             const households =
                 await response.json();
 
-            if (households.length === 0) {
+
+
+            // ==============================
+            // NO HOUSEHOLD FOUND
+            // ==============================
+
+            if (
+                !households ||
+                households.length === 0
+            ) {
+
+
+                householdId = null;
+
 
                 document.getElementById(
-                    "householdName"
+                    "householdNameCard"
                 ).innerText =
-                    "Not created";
+                    "Not Created";
+
+
+                document.getElementById(
+                    "carbonValue"
+                ).innerText =
+                    "0";
+
+
+                document.getElementById(
+                    "activityCount"
+                ).innerText =
+                    "0";
+
+
+
+                document.getElementById(
+                    "householdDetails"
+                ).innerHTML = `
+
+
+                    <div class="create-household-box">
+
+
+                        <h3>
+                            Create Your Household
+                        </h3>
+
+
+                        <p>
+                            Please enter your household details to continue.
+                        </p>
+
+
+
+                        <div class="create-household-form">
+
+
+                            <div>
+
+                                <label>
+                                    Household Name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="newHouseholdName"
+                                    placeholder="Enter household name">
+
+                            </div>
+
+
+
+                            <div>
+
+                                <label>
+                                    Address
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="newHouseholdAddress"
+                                    placeholder="Enter address">
+
+                            </div>
+
+
+
+                            <div>
+
+                                <label>
+                                    Number of Members
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="newHouseholdMembers"
+                                    min="1"
+                                    placeholder="Enter number of members">
+
+                            </div>
+
+
+
+                            <div class="button-area">
+
+                                <button
+                                    class="primary"
+                                    onclick="createHousehold()">
+
+                                    Create Household
+
+                                </button>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                `;
+
 
                 return;
+
             }
+
+
+
+            // ==============================
+            // EXISTING HOUSEHOLD
+            // ==============================
 
             const household =
                 households[0];
 
+
+
             householdId =
                 household.id;
 
+
+
+            localStorage.setItem(
+                "householdId",
+                householdId
+            );
+
+
+
+            // Household card
+
             document.getElementById(
-                "householdName"
+                "householdNameCard"
             ).innerText =
                 household.householdName;
 
-            document.getElementById(
-                "memberCount"
-            ).innerText =
-                household.members;
+
+
+            // Household details table
 
             document.getElementById(
-                "displayHouseholdName"
-            ).innerText =
-                household.householdName;
+                "householdDetails"
+            ).innerHTML = `
 
-            document.getElementById(
-                "displayAddress"
-            ).innerText =
-                household.address;
 
-            document.getElementById(
-                "displayMembers"
-            ).innerText =
-                household.members;
+                <table class="household-details-table">
 
-            loadCarbon();
+
+                    <thead>
+
+                    <tr>
+
+                        <th>
+                            Field
+                        </th>
+
+                        <th>
+                            Details
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
+
+                    </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                    <tr>
+
+                        <td>
+                            Household Name
+                        </td>
+
+                        <td>
+
+                            <input
+                                type="text"
+                                id="householdNameInput"
+                                value="${household.householdName}"
+                                disabled>
+
+                        </td>
+
+                        <td>
+
+                            <button
+                                class="edit-btn"
+                                onclick="editHousehold()">
+
+                                Edit
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+
+
+                    <tr>
+
+                        <td>
+                            Address
+                        </td>
+
+                        <td>
+
+                            <input
+                                type="text"
+                                id="householdAddressInput"
+                                value="${household.address}"
+                                disabled>
+
+                        </td>
+
+                        <td>
+
+                            <button
+                                class="edit-btn"
+                                onclick="editHousehold()">
+
+                                Edit
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+
+
+                    <tr>
+
+                        <td>
+                            Number of Members
+                        </td>
+
+                        <td>
+
+                            <input
+                                type="number"
+                                id="householdMembersInput"
+                                value="${household.members}"
+                                min="1"
+                                disabled>
+
+                        </td>
+
+                        <td>
+
+                            <button
+                                class="edit-btn"
+                                onclick="editHousehold()">
+
+                                Edit
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+
+
+                    <tr>
+
+                        <td>
+                            Household ID
+                        </td>
+
+                        <td>
+
+                            <input
+                                type="text"
+                                value="${household.id}"
+                                disabled>
+
+                        </td>
+
+                        <td>
+                            -
+                        </td>
+
+                    </tr>
+
+
+                    </tbody>
+
+
+                </table>
+
+
+            `;
+
+
+
+            // Load dashboard data
+
+            await loadActivities();
+
+            await loadCarbonFootprint();
+
+            await loadChallenges();
+
+            await loadParticipations();
+
+            await loadLeaderboard();
+
 
         } catch (error) {
 
-            console.log(error);
+
+            console.error(error);
+
+
+            document.getElementById(
+                "householdDetails"
+            ).innerHTML = `
+
+                <div class="detail-box">
+
+                    Unable to load household details.
+
+                </div>
+
+            `;
 
         }
+
     }
 
 
-    // Load Carbon Footprint
 
-    async function loadCarbon() {
+    // ==============================
+    // CREATE HOUSEHOLD
+    // ==============================
 
-        if (!householdId) {
+    async function createHousehold() {
+
+
+        const householdName =
+            document.getElementById(
+                "newHouseholdName"
+            ).value.trim();
+
+
+        const address =
+            document.getElementById(
+                "newHouseholdAddress"
+            ).value.trim();
+
+
+        const members =
+            parseInt(
+                document.getElementById(
+                    "newHouseholdMembers"
+                ).value
+            );
+
+
+        if (
+            !householdName ||
+            !address ||
+            !members ||
+            members <= 0
+        ) {
+
+            alert(
+                "Please enter all household details."
+            );
+
             return;
+
         }
 
+
+
+        const householdData = {
+
+            householdName:
+            householdName,
+
+            address:
+            address,
+
+            members:
+            members,
+
+            userId:
+                Number(userId)
+
+        };
+
+
+
         try {
+
+
+            const response =
+                await fetch(
+                    API +
+                    "/households",
+                    {
+
+                        method:
+                            "POST",
+
+                        headers: {
+
+                            "Content-Type":
+                                "application/json"
+
+                        },
+
+                        body:
+                            JSON.stringify(
+                                householdData
+                            )
+
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.error ||
+                    "Unable to create household"
+                );
+
+            }
+
+
+
+            householdId =
+                data.id;
+
+
+
+            localStorage.setItem(
+                "householdId",
+                householdId
+            );
+
+
+
+            alert(
+                "Household created successfully."
+            );
+
+
+
+            await loadHousehold();
+
+
+        } catch (error) {
+
+
+            alert(
+                error.message
+            );
+
+        }
+
+    }
+
+
+
+    // ==============================
+    // EDIT HOUSEHOLD
+    // ==============================
+
+    function editHousehold() {
+
+
+        document.getElementById(
+            "householdNameInput"
+        ).disabled = false;
+
+
+        document.getElementById(
+            "householdAddressInput"
+        ).disabled = false;
+
+
+        document.getElementById(
+            "householdMembersInput"
+        ).disabled = false;
+
+
+
+        document.getElementById(
+            "householdNameInput"
+        ).classList.add(
+            "editable"
+        );
+
+
+        document.getElementById(
+            "householdAddressInput"
+        ).classList.add(
+            "editable"
+        );
+
+
+        document.getElementById(
+            "householdMembersInput"
+        ).classList.add(
+            "editable"
+        );
+
+
+
+        document.getElementById(
+            "householdUpdateButtons"
+        ).style.display =
+            "block";
+
+    }
+
+
+
+    // ==============================
+    // UPDATE HOUSEHOLD
+    // ==============================
+
+    async function updateHousehold() {
+
+
+        const householdName =
+            document.getElementById(
+                "householdNameInput"
+            ).value.trim();
+
+
+        const address =
+            document.getElementById(
+                "householdAddressInput"
+            ).value.trim();
+
+
+        const members =
+            parseInt(
+                document.getElementById(
+                    "householdMembersInput"
+                ).value
+            );
+
+
+
+        if (
+            !householdName ||
+            !address ||
+            !members ||
+            members <= 0
+        ) {
+
+            alert(
+                "Please enter valid household details."
+            );
+
+            return;
+
+        }
+
+
+
+        const householdData = {
+
+            householdName:
+            householdName,
+
+            address:
+            address,
+
+            members:
+            members
+
+        };
+
+
+
+        try {
+
+
+            const response =
+                await fetch(
+                    API +
+                    "/households/" +
+                    householdId,
+                    {
+
+                        method:
+                            "PUT",
+
+                        headers: {
+
+                            "Content-Type":
+                                "application/json"
+
+                        },
+
+                        body:
+                            JSON.stringify(
+                                householdData
+                            )
+
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.error ||
+                    "Unable to update household"
+                );
+
+            }
+
+
+
+            alert(
+                "Household details updated successfully."
+            );
+
+
+
+            cancelHouseholdEdit();
+
+
+
+            await loadHousehold();
+
+
+        } catch (error) {
+
+
+            alert(
+                error.message
+            );
+
+        }
+
+    }
+
+
+
+    // ==============================
+    // CANCEL HOUSEHOLD EDIT
+    // ==============================
+
+    function cancelHouseholdEdit() {
+
+
+        const nameInput =
+            document.getElementById(
+                "householdNameInput"
+            );
+
+
+        const addressInput =
+            document.getElementById(
+                "householdAddressInput"
+            );
+
+
+        const membersInput =
+            document.getElementById(
+                "householdMembersInput"
+            );
+
+
+
+        if (nameInput) {
+
+            nameInput.disabled = true;
+
+            nameInput.classList.remove(
+                "editable"
+            );
+
+        }
+
+
+
+        if (addressInput) {
+
+            addressInput.disabled = true;
+
+            addressInput.classList.remove(
+                "editable"
+            );
+
+        }
+
+
+
+        if (membersInput) {
+
+            membersInput.disabled = true;
+
+            membersInput.classList.remove(
+                "editable"
+            );
+
+        }
+
+
+
+        document.getElementById(
+            "householdUpdateButtons"
+        ).style.display =
+            "none";
+
+    }
+
+
+
+    // ==============================
+    // LOAD ACTIVITIES
+    // ==============================
+
+    async function loadActivities() {
+
+
+        if (!householdId)
+            return;
+
+
+
+        try {
+
+
+            const response =
+                await fetch(
+                    API +
+                    "/activities/household/" +
+                    householdId
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Failed to load activities"
+                );
+
+            }
+
+
+
+            const activities =
+                await response.json();
+
+
+
+            document.getElementById(
+                "activityCount"
+            ).innerText =
+                activities.length;
+
+
+
+            const tableBody =
+                document.getElementById(
+                    "activityTableBody"
+                );
+
+
+
+            if (
+                activities.length === 0
+            ) {
+
+                tableBody.innerHTML = `
+
+                    <tr>
+
+                        <td colspan="6">
+
+                            No activities found.
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+                return;
+
+            }
+
+
+
+            tableBody.innerHTML =
+                "";
+
+
+
+            activities.forEach(
+                activity => {
+
+
+                    const row =
+                        document.createElement(
+                            "tr"
+                        );
+
+
+
+                    row.innerHTML = `
+
+                        <td>
+                            ${activity.id}
+                        </td>
+
+                        <td>
+                            ${activity.activityType}
+                        </td>
+
+                        <td>
+                            ${activity.quantity}
+                        </td>
+
+                        <td>
+                            ${activity.activityDate}
+                        </td>
+
+                        <td>
+
+                            <button
+                                class="edit-btn"
+                                onclick="editActivity(${activity.id})">
+
+                                Edit
+
+                            </button>
+
+                        </td>
+
+                        <td>
+
+                            <button
+                                class="delete-btn"
+                                onclick="deleteActivity(${activity.id})">
+
+                                Delete
+
+                            </button>
+
+                        </td>
+
+                    `;
+
+
+
+                    tableBody.appendChild(
+                        row
+                    );
+
+                }
+            );
+
+
+        } catch (error) {
+
+
+            console.error(error);
+
+        }
+
+    }
+
+
+
+    // ==============================
+    // ADD / UPDATE ACTIVITY
+    // ==============================
+
+    document.getElementById(
+        "activityForm"
+    ).addEventListener(
+        "submit",
+        async function (event) {
+
+
+            event.preventDefault();
+
+
+
+            const activityType =
+                document.getElementById(
+                    "activityType"
+                ).value;
+
+
+
+            const quantity =
+                parseFloat(
+                    document.getElementById(
+                        "quantity"
+                    ).value
+                );
+
+
+
+            const activityDate =
+                document.getElementById(
+                    "activityDate"
+                ).value;
+
+
+
+            const activityData = {
+
+                householdId:
+                householdId,
+
+                activityType:
+                activityType,
+
+                quantity:
+                quantity,
+
+                activityDate:
+                activityDate
+
+            };
+
+
+
+            try {
+
+
+                let response;
+
+
+
+                if (
+                    editingActivityId !== null
+                ) {
+
+
+                    response =
+                        await fetch(
+                            API +
+                            "/activities/" +
+                            editingActivityId,
+                            {
+
+                                method:
+                                    "PUT",
+
+                                headers: {
+
+                                    "Content-Type":
+                                        "application/json"
+
+                                },
+
+                                body:
+                                    JSON.stringify(
+                                        activityData
+                                    )
+
+                            }
+                        );
+
+
+                } else {
+
+
+                    response =
+                        await fetch(
+                            API +
+                            "/activities",
+                            {
+
+                                method:
+                                    "POST",
+
+                                headers: {
+
+                                    "Content-Type":
+                                        "application/json"
+
+                                },
+
+                                body:
+                                    JSON.stringify(
+                                        activityData
+                                    )
+
+                            }
+                        );
+
+                }
+
+
+
+                if (!response.ok) {
+
+
+                    const errorData =
+                        await response.json();
+
+
+                    throw new Error(
+                        errorData.error ||
+                        "Operation failed"
+                    );
+
+                }
+
+
+
+                if (
+                    editingActivityId !== null
+                ) {
+
+                    showMessage(
+                        "activityMessage",
+                        "Activity updated successfully.",
+                        true
+                    );
+
+                } else {
+
+                    showMessage(
+                        "activityMessage",
+                        "Activity added successfully.",
+                        true
+                    );
+
+                }
+
+
+
+                cancelEdit();
+
+
+                await loadActivities();
+
+                await loadCarbonFootprint();
+
+                await loadParticipations();
+
+                await loadLeaderboard();
+
+
+            } catch (error) {
+
+
+                showMessage(
+                    "activityMessage",
+                    error.message,
+                    false
+                );
+
+            }
+
+        }
+    );
+
+
+
+    // ==============================
+    // EDIT ACTIVITY
+    // ==============================
+
+    async function editActivity(id) {
+
+
+        try {
+
+
+            const response =
+                await fetch(
+                    API +
+                    "/activities/" +
+                    id
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Unable to load activity"
+                );
+
+            }
+
+
+
+            const activity =
+                await response.json();
+
+
+
+            document.getElementById(
+                "activityType"
+            ).value =
+                activity.activityType;
+
+
+
+            document.getElementById(
+                "quantity"
+            ).value =
+                activity.quantity;
+
+
+
+            document.getElementById(
+                "activityDate"
+            ).value =
+                activity.activityDate;
+
+
+
+            editingActivityId =
+                id;
+
+
+
+            document.getElementById(
+                "activitySubmitButton"
+            ).innerText =
+                "Update Activity";
+
+
+
+            document.getElementById(
+                "cancelEditButton"
+            ).style.display =
+                "inline-block";
+
+
+
+            window.scrollTo({
+
+                top: 0,
+
+                behavior:
+                    "smooth"
+
+            });
+
+
+        } catch (error) {
+
+
+            alert(
+                error.message
+            );
+
+        }
+
+    }
+
+
+
+    // ==============================
+    // CANCEL ACTIVITY EDIT
+    // ==============================
+
+    function cancelEdit() {
+
+
+        editingActivityId =
+            null;
+
+
+
+        document.getElementById(
+            "activityForm"
+        ).reset();
+
+
+
+        document.getElementById(
+            "activityDate"
+        ).value =
+            new Date()
+                .toISOString()
+                .split("T")[0];
+
+
+
+        document.getElementById(
+            "activitySubmitButton"
+        ).innerText =
+            "Add Activity";
+
+
+
+        document.getElementById(
+            "cancelEditButton"
+        ).style.display =
+            "none";
+
+    }
+
+
+
+    // ==============================
+    // DELETE ACTIVITY
+    // ==============================
+
+    async function deleteActivity(id) {
+
+
+        if (
+            !confirm(
+                "Are you sure you want to delete this activity?"
+            )
+        ) {
+
+            return;
+
+        }
+
+
+
+        try {
+
+
+            const response =
+                await fetch(
+                    API +
+                    "/activities/" +
+                    id,
+                    {
+
+                        method:
+                            "DELETE"
+
+                    }
+                );
+
+
+
+            if (!response.ok) {
+
+
+                const errorData =
+                    await response.json();
+
+
+                throw new Error(
+                    errorData.error ||
+                    "Unable to delete activity"
+                );
+
+            }
+
+
+
+            alert(
+                "Activity deleted successfully."
+            );
+
+
+
+            await loadActivities();
+
+            await loadCarbonFootprint();
+
+            await loadParticipations();
+
+            await loadLeaderboard();
+
+
+        } catch (error) {
+
+
+            alert(
+                error.message
+            );
+
+        }
+
+    }
+
+
+
+    // ==============================
+    // CARBON FOOTPRINT
+    // ==============================
+
+    async function loadCarbonFootprint() {
+
+
+        if (!householdId)
+            return;
+
+
+
+        try {
+
 
             const response =
                 await fetch(
@@ -469,294 +2442,312 @@
                     householdId
                 );
 
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Failed to load carbon footprint"
+                );
+
+            }
+
+
+
             const carbon =
                 await response.json();
 
+
+
             document.getElementById(
-                "carbonFootprint"
+                "carbonValue"
             ).innerText =
-                Number(carbon).toFixed(2);
+                Number(carbon)
+                    .toFixed(2);
+
 
         } catch (error) {
 
-            console.log(error);
+
+            console.error(error);
+
+
+            document.getElementById(
+                "carbonValue"
+            ).innerText =
+                "0";
 
         }
+
     }
 
 
-    // Add Activity
 
-    document.getElementById(
-        "activityForm"
-    ).addEventListener(
-        "submit",
-        async function(event) {
-
-            event.preventDefault();
-
-            if (!householdId) {
-
-                document.getElementById(
-                    "activityMessage"
-                ).innerText =
-                    "Create a household first.";
-
-                return;
-            }
-
-            const activityType =
-                document.getElementById(
-                    "activityType"
-                ).value;
-
-            const quantity =
-                document.getElementById(
-                    "quantity"
-                ).value;
-
-            const activityDate =
-                document.getElementById(
-                    "activityDate"
-                ).value;
-
-            try {
-
-                const response =
-                    await fetch(
-                        API + "/activities",
-                        {
-                            method: "POST",
-
-                            headers: {
-                                "Content-Type":
-                                    "application/json"
-                            },
-
-                            body: JSON.stringify({
-
-                                householdId:
-                                householdId,
-
-                                activityType:
-                                activityType,
-
-                                quantity:
-                                    Number(quantity),
-
-                                activityDate:
-                                activityDate
-                            })
-                        }
-                    );
-
-                const data =
-                    await response.json();
-
-                if (!response.ok) {
-
-                    document.getElementById(
-                        "activityMessage"
-                    ).innerText =
-                        data.error ||
-                        "Unable to add activity.";
-
-                    return;
-                }
-
-                document.getElementById(
-                    "activityMessage"
-                ).innerText =
-                    "Activity added successfully.";
-
-                document.getElementById(
-                    "activityForm"
-                ).reset();
-
-                loadCarbon();
-
-            } catch (error) {
-
-                document.getElementById(
-                    "activityMessage"
-                ).innerText =
-                    "Unable to connect to server.";
-
-            }
-
-        }
-    );
-
-
-    // Load Challenges
+    // ==============================
+    // LOAD CHALLENGES
+    // ==============================
 
     async function loadChallenges() {
 
+
         try {
+
 
             const response =
                 await fetch(
-                    API + "/challenges"
+                    API +
+                    "/challenges"
                 );
+
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Failed to load challenges"
+                );
+
+            }
+
+
 
             const challenges =
                 await response.json();
 
-            const container =
+
+
+            const tableBody =
                 document.getElementById(
-                    "challengeList"
+                    "challengeTableBody"
                 );
 
-            container.innerHTML = "";
 
-            if (challenges.length === 0) {
 
-                container.innerText =
-                    "No challenges available.";
+            if (
+                challenges.length === 0
+            ) {
+
+
+                tableBody.innerHTML = `
+
+                    <tr>
+
+                        <td colspan="7">
+
+                            No challenges available.
+
+                        </td>
+
+                    </tr>
+
+                `;
+
 
                 return;
+
             }
 
-            challenges.forEach(
-                function(challenge) {
 
-                    const div =
+
+            tableBody.innerHTML =
+                "";
+
+
+
+            challenges.forEach(
+                challenge => {
+
+
+                    const row =
                         document.createElement(
-                            "div"
+                            "tr"
                         );
 
-                    div.className =
-                        "card";
 
-                    div.style.marginTop =
-                        "15px";
 
-                    div.innerHTML = `
+                    row.innerHTML = `
 
-                        <h3>
+                        <td>
+                            ${challenge.id}
+                        </td>
+
+                        <td>
                             ${challenge.challengeName}
-                        </h3>
+                        </td>
 
-                        <p>
+                        <td>
                             ${challenge.description}
-                        </p>
+                        </td>
 
-                        <p>
-                            Target Reduction:
-                            <strong>
-                                ${challenge.targetReduction}%
-                            </strong>
-                        </p>
+                        <td>
+                            ${challenge.targetReduction}%
+                        </td>
 
-                        <p>
+                        <td>
                             ${challenge.startDate}
-                            →
+                        </td>
+
+                        <td>
                             ${challenge.endDate}
-                        </p>
+                        </td>
 
-                        <button
-                            class="action"
-                            onclick="joinChallenge(${challenge.id})">
+                        <td>
 
-                            Join Challenge
+                            <button
+                                class="join-btn"
+                                onclick="joinChallenge(${challenge.id})">
 
-                        </button>
+                                Join
+
+                            </button>
+
+                        </td>
+
                     `;
 
-                    container.appendChild(div);
+
+
+                    tableBody.appendChild(
+                        row
+                    );
 
                 }
             );
 
+
         } catch (error) {
 
-            console.log(error);
+
+            console.error(error);
 
         }
+
     }
 
 
-    // Join Challenge
 
-    async function joinChallenge(challengeId) {
+    // ==============================
+    // JOIN CHALLENGE
+    // ==============================
+
+    async function joinChallenge(
+        challengeId
+    ) {
+
 
         if (!householdId) {
 
+
             alert(
-                "Create a household first."
+                "Please create your household first."
             );
 
+
             return;
+
         }
 
+
+
+        const participation = {
+
+            householdId:
+            householdId,
+
+            challengeId:
+            challengeId,
+
+            progressPercentage:
+                0,
+
+            status:
+                "JOINED"
+
+        };
+
+
+
         try {
+
 
             const response =
                 await fetch(
-                    API + "/participations",
+                    API +
+                    "/participations",
                     {
-                        method: "POST",
+
+                        method:
+                            "POST",
 
                         headers: {
+
                             "Content-Type":
                                 "application/json"
+
                         },
 
-                        body: JSON.stringify({
+                        body:
+                            JSON.stringify(
+                                participation
+                            )
 
-                            householdId:
-                            householdId,
-
-                            challengeId:
-                            challengeId,
-
-                            progressPercentage:
-                                0,
-
-                            status:
-                                "JOINED"
-                        })
                     }
                 );
 
-            const data =
-                await response.json();
+
 
             if (!response.ok) {
 
-                alert(
-                    data.error ||
-                    "Unable to join challenge."
+
+                const errorData =
+                    await response.json();
+
+
+                throw new Error(
+                    errorData.error ||
+                    "Unable to join challenge"
                 );
 
-                return;
             }
 
+
+
             alert(
-                "Challenge joined successfully!"
+                "Challenge joined successfully."
             );
 
-            loadProgress();
+
+
+            await loadParticipations();
+
 
         } catch (error) {
 
+
             alert(
-                "Unable to connect to server."
+                error.message
             );
 
         }
+
     }
 
 
-    // Load Challenge Progress
 
-    async function loadProgress() {
+    // ==============================
+    // LOAD PARTICIPATIONS
+    // ==============================
 
-        if (!householdId) {
+    async function loadParticipations() {
+
+
+        if (!householdId)
             return;
-        }
+
+
 
         try {
+
 
             const response =
                 await fetch(
@@ -765,142 +2756,508 @@
                     householdId
                 );
 
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Failed to load participation"
+                );
+
+            }
+
+
+
             const participations =
                 await response.json();
 
-            if (participations.length === 0) {
 
+
+            const tableBody =
                 document.getElementById(
-                    "challengeProgress"
-                ).innerText =
-                    "0%";
+                    "participationTableBody"
+                );
+
+
+
+            if (
+                participations.length === 0
+            ) {
+
+
+                tableBody.innerHTML = `
+
+                    <tr>
+
+                        <td colspan="5">
+
+                            You have not joined any challenge.
+
+                        </td>
+
+                    </tr>
+
+                `;
+
 
                 return;
+
             }
 
-            const participation =
-                participations[0];
 
-            document.getElementById(
-                "challengeProgress"
-            ).innerText =
-                participation.progressPercentage +
-                "%";
+
+            tableBody.innerHTML =
+                "";
+
+
+
+            participations.forEach(
+                participation => {
+
+
+                    const row =
+                        document.createElement(
+                            "tr"
+                        );
+
+
+
+                    row.innerHTML = `
+
+                        <td>
+                            ${participation.id}
+                        </td>
+
+                        <td>
+                            ${participation.challengeId}
+                        </td>
+
+                        <td>
+                            ${participation.progressPercentage}%
+                        </td>
+
+                        <td>
+                            ${participation.status}
+                        </td>
+
+                        <td>
+
+
+                            <button
+                                class="join-btn"
+                                onclick="trackProgress(${participation.id})">
+
+                                Track Progress
+
+                            </button>
+
+
+                            <button
+                                class="delete-btn"
+                                onclick="leaveChallenge(${participation.id})">
+
+                                Leave Challenge
+
+                            </button>
+
+
+                        </td>
+
+                    `;
+
+
+
+                    tableBody.appendChild(
+                        row
+                    );
+
+                }
+            );
+
 
         } catch (error) {
 
-            console.log(error);
+
+            console.error(
+                error
+            );
 
         }
+
     }
 
 
-    // Load Leaderboard
 
-    async function loadLeaderboard() {
+    // ==============================
+    // LEAVE CHALLENGE
+    // ==============================
+
+    async function leaveChallenge(
+        participationId
+    ) {
+
+
+        const confirmLeave =
+            confirm(
+                "Are you sure you want to leave this challenge?"
+            );
+
+
+
+        if (!confirmLeave) {
+
+            return;
+
+        }
+
+
 
         try {
 
+
             const response =
                 await fetch(
-                    API + "/leaderboard"
+                    API +
+                    "/participations/" +
+                    participationId,
+                    {
+
+                        method:
+                            "DELETE"
+
+                    }
                 );
+
+
+
+            if (!response.ok) {
+
+
+                let errorMessage =
+                    "Unable to leave challenge";
+
+
+                try {
+
+
+                    const errorData =
+                        await response.json();
+
+
+                    errorMessage =
+                        errorData.error ||
+                        errorMessage;
+
+
+                } catch (e) {
+
+
+                    console.error(e);
+
+                }
+
+
+
+                throw new Error(
+                    errorMessage
+                );
+
+            }
+
+
+
+            alert(
+                "You have left the challenge successfully."
+            );
+
+
+
+            await loadParticipations();
+
+            await loadLeaderboard();
+
+
+        } catch (error) {
+
+
+            alert(
+                error.message
+            );
+
+        }
+
+    }
+
+
+
+    // ==============================
+    // TRACK PROGRESS
+    // ==============================
+
+    async function trackProgress(
+        participationId
+    ) {
+
+
+        try {
+
+
+            const response =
+                await fetch(
+                    API +
+                    "/participations/" +
+                    participationId +
+                    "/progress"
+                );
+
+
 
             const data =
                 await response.json();
 
-            const container =
-                document.getElementById(
-                    "leaderboard"
+
+
+            if (!response.ok) {
+
+
+                throw new Error(
+                    data.error ||
+                    "Unable to track progress"
                 );
 
-            if (data.length === 0) {
-
-                container.innerText =
-                    "Leaderboard data will appear after monthly activity is recorded.";
-
-                return;
             }
 
-            let html = `
 
-                <table>
 
-                    <tr>
-                        <th>Rank</th>
-                        <th>Household</th>
-                        <th>Previous Footprint</th>
-                        <th>Current Footprint</th>
-                        <th>Reduction</th>
-                    </tr>
-            `;
-
-            data.forEach(
-                function(item, index) {
-
-                    html += `
-
-                        <tr>
-
-                            <td>
-                                ${index + 1}
-                            </td>
-
-                            <td>
-                                Household
-                                ${item.householdId}
-                            </td>
-
-                            <td>
-                                ${item.previousMonthFootprint}
-                                kg
-                            </td>
-
-                            <td>
-                                ${item.currentMonthFootprint}
-                                kg
-                            </td>
-
-                            <td>
-                                ${item.reductionPercentage}%
-                            </td>
-
-                        </tr>
-                    `;
-                }
+            alert(
+                "Progress: " +
+                data.progressPercentage +
+                "%\nStatus: " +
+                data.status
             );
 
-            html += "</table>";
 
-            container.innerHTML =
-                html;
+
+            await loadParticipations();
+
+            await loadLeaderboard();
+
 
         } catch (error) {
 
-            console.log(error);
+
+            alert(
+                error.message
+            );
 
         }
+
     }
 
+
+
+    // ==============================
+    // LEADERBOARD
+    // ==============================
+
+    async function loadLeaderboard() {
+
+
+        try {
+
+
+            const response =
+                await fetch(
+                    API +
+                    "/leaderboard"
+                );
+
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Failed to load leaderboard"
+                );
+
+            }
+
+
+
+            const leaderboard =
+                await response.json();
+
+
+
+            const tableBody =
+                document.getElementById(
+                    "leaderboardTableBody"
+                );
+
+
+
+            if (
+                leaderboard.length === 0
+            ) {
+
+
+                tableBody.innerHTML = `
+
+                    <tr>
+
+                        <td colspan="5">
+
+                            No leaderboard data available.
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+
+                return;
+
+            }
+
+
+
+            tableBody.innerHTML =
+                "";
+
+
+
+            leaderboard.forEach(
+                (item, index) => {
+
+
+                    const row =
+                        document.createElement(
+                            "tr"
+                        );
+
+
+
+                    row.innerHTML = `
+
+                        <td>
+                            ${index + 1}
+                        </td>
+
+                        <td>
+                            ${item.householdId}
+                        </td>
+
+                        <td>
+                            ${Number(
+                        item.previousMonthFootprint
+                    ).toFixed(2)}
+                            kg
+                        </td>
+
+                        <td>
+                            ${Number(
+                        item.currentMonthFootprint
+                    ).toFixed(2)}
+                            kg
+                        </td>
+
+                        <td>
+                            ${Number(
+                        item.reductionPercentage
+                    ).toFixed(2)}%
+                        </td>
+
+                    `;
+
+
+
+                    tableBody.appendChild(
+                        row
+                    );
+
+                }
+            );
+
+
+        } catch (error) {
+
+
+            console.error(
+                error
+            );
+
+        }
+
+    }
+
+
+
+    // ==============================
+    // MESSAGE
+    // ==============================
+
+    function showMessage(
+        elementId,
+        message,
+        success
+    ) {
+
+
+        const element =
+            document.getElementById(
+                elementId
+            );
+
+
+        element.innerText =
+            message;
+
+
+        element.style.color =
+            success
+                ? "green"
+                : "red";
+
+    }
+
+
+
+    // ==============================
+    // LOGOUT
+    // ==============================
 
     function logout() {
 
-        localStorage.clear();
+
+        localStorage.removeItem(
+            "userId"
+        );
+
+
+        localStorage.removeItem(
+            "userRole"
+        );
+
+
+        localStorage.removeItem(
+            "userName"
+        );
+
+
+        localStorage.removeItem(
+            "householdId"
+        );
+
 
         window.location.href =
             "index.html";
+
     }
 
 
-    loadHousehold();
-
-    loadChallenges();
-
-    loadProgress();
-
-    loadLeaderboard();
-
 </script>
+
 
 </body>
 

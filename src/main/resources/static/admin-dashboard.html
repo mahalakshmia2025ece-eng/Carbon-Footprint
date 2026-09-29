@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta name="viewport"
@@ -59,6 +60,7 @@
             display: grid;
             grid-template-columns:
                 repeat(auto-fit, minmax(210px, 1fr));
+
             gap: 20px;
             margin-top: 25px;
         }
@@ -129,6 +131,23 @@
             background: #1b5e20;
         }
 
+        button.delete-button {
+            background: #c62828;
+            color: white;
+            border: none;
+
+            padding: 10px 18px;
+            margin-top: 8px;
+            margin-left: 5px;
+
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        button.delete-button:hover {
+            background: #8e0000;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -159,21 +178,29 @@
 
 </head>
 
+
 <body>
+
 
 <header class="header">
 
     <h2>🌱 CarbonTrack Admin</h2>
 
-    <button class="logout"
+    <button
+            class="logout"
             onclick="logout()">
+
         Logout
+
     </button>
 
 </header>
 
 
 <div class="container">
+
+
+    <!-- Welcome -->
 
     <div class="welcome">
 
@@ -193,13 +220,17 @@
 
     <div class="cards">
 
+
         <div class="card">
 
             <h3>👥 Users</h3>
 
-            <div class="value"
-                 id="userCount">
+            <div
+                    class="value"
+                    id="userCount">
+
                 -
+
             </div>
 
         </div>
@@ -209,9 +240,12 @@
 
             <h3>🏠 Households</h3>
 
-            <div class="value"
-                 id="householdCount">
+            <div
+                    class="value"
+                    id="householdCount">
+
                 -
+
             </div>
 
         </div>
@@ -221,9 +255,12 @@
 
             <h3>📋 Activities</h3>
 
-            <div class="value"
-                 id="activityCount">
+            <div
+                    class="value"
+                    id="activityCount">
+
                 -
+
             </div>
 
         </div>
@@ -233,24 +270,31 @@
 
             <h3>🏆 Challenges</h3>
 
-            <div class="value"
-                 id="challengeCount">
+            <div
+                    class="value"
+                    id="challengeCount">
+
                 -
+
             </div>
 
         </div>
 
+
     </div>
 
 
-    <!-- Households -->
+    <!-- Household Management -->
 
     <div class="section">
 
-        <h2>Household Management</h2>
+        <h2>
+            Household Management
+        </h2>
 
-        <div class="table-container"
-             id="householdTable">
+        <div
+                class="table-container"
+                id="householdTable">
 
             Loading households...
 
@@ -259,14 +303,17 @@
     </div>
 
 
-    <!-- Activities -->
+    <!-- Activity Logs -->
 
     <div class="section">
 
-        <h2>Activity Logs</h2>
+        <h2>
+            Activity Logs
+        </h2>
 
-        <div class="table-container"
-             id="activityTable">
+        <div
+                class="table-container"
+                id="activityTable">
 
             Loading activities...
 
@@ -279,9 +326,13 @@
 
     <div class="section">
 
-        <h2>Create Community Challenge</h2>
+        <h2>
+            Create Community Challenge
+        </h2>
+
 
         <form id="challengeForm">
+
 
             <input
                     type="text"
@@ -290,11 +341,13 @@
                     required
             >
 
+
             <textarea
                     id="description"
                     placeholder="Challenge Description"
                     required
             ></textarea>
+
 
             <input
                     type="number"
@@ -306,17 +359,20 @@
                     required
             >
 
+
             <input
                     type="date"
                     id="startDate"
                     required
             >
 
+
             <input
                     type="date"
                     id="endDate"
                     required
             >
+
 
             <button
                     class="action"
@@ -326,21 +382,27 @@
 
             </button>
 
+
         </form>
+
 
         <div id="challengeMessage"></div>
 
     </div>
 
 
-    <!-- Challenges -->
+    <!-- Existing Challenges -->
 
     <div class="section">
 
-        <h2>Existing Challenges</h2>
+        <h2>
+            Existing Challenges
+        </h2>
 
-        <div class="table-container"
-             id="challengeTable">
+
+        <div
+                class="table-container"
+                id="challengeTable">
 
             Loading challenges...
 
@@ -349,14 +411,18 @@
     </div>
 
 
-    <!-- Participations -->
+    <!-- Household Participation -->
 
     <div class="section">
 
-        <h2>Household Participation</h2>
+        <h2>
+            Household Participation
+        </h2>
 
-        <div class="table-container"
-             id="participationTable">
+
+        <div
+                class="table-container"
+                id="participationTable">
 
             Loading participation data...
 
@@ -365,14 +431,18 @@
     </div>
 
 
-    <!-- Leaderboard -->
+    <!-- Monthly Leaderboard -->
 
     <div class="section">
 
-        <h2>Monthly Reduction Leaderboard</h2>
+        <h2>
+            Monthly Reduction Leaderboard
+        </h2>
 
-        <div class="table-container"
-             id="leaderboardTable">
+
+        <div
+                class="table-container"
+                id="leaderboardTable">
 
             Loading leaderboard...
 
@@ -380,14 +450,20 @@
 
     </div>
 
+
 </div>
 
 
 <script>
 
+
     const API =
         "http://localhost:8080/api";
 
+
+    // =========================
+    // ADMIN LOGIN CHECK
+    // =========================
 
     const userRole =
         localStorage.getItem("userRole");
@@ -401,7 +477,9 @@
     }
 
 
-    // Load Users
+    // =========================
+    // LOAD USERS
+    // =========================
 
     async function loadUsers() {
 
@@ -412,23 +490,29 @@
                     API + "/users"
                 );
 
+
             const users =
                 await response.json();
+
 
             document.getElementById(
                 "userCount"
             ).innerText =
                 users.length;
 
+
         } catch (error) {
 
             console.log(error);
 
         }
+
     }
 
 
-    // Load Households
+    // =========================
+    // LOAD HOUSEHOLDS
+    // =========================
 
     async function loadHouseholds() {
 
@@ -439,8 +523,10 @@
                     API + "/households"
                 );
 
+
             const households =
                 await response.json();
+
 
             document.getElementById(
                 "householdCount"
@@ -456,6 +542,7 @@
                     "No households found.";
 
                 return;
+
             }
 
 
@@ -466,12 +553,17 @@
                     <tr>
 
                         <th>ID</th>
+
                         <th>Name</th>
+
                         <th>Address</th>
+
                         <th>Members</th>
+
                         <th>User ID</th>
 
                     </tr>
+
             `;
 
 
@@ -503,7 +595,9 @@
                             </td>
 
                         </tr>
+
                     `;
+
                 }
             );
 
@@ -516,15 +610,19 @@
             ).innerHTML =
                 html;
 
+
         } catch (error) {
 
             console.log(error);
 
         }
+
     }
 
 
-    // Load Activities
+    // =========================
+    // LOAD ACTIVITIES
+    // =========================
 
     async function loadActivities() {
 
@@ -534,6 +632,7 @@
                 await fetch(
                     API + "/activities"
                 );
+
 
             const activities =
                 await response.json();
@@ -553,6 +652,7 @@
                     "No activity logs found.";
 
                 return;
+
             }
 
 
@@ -563,12 +663,17 @@
                     <tr>
 
                         <th>ID</th>
+
                         <th>Household ID</th>
+
                         <th>Activity</th>
+
                         <th>Quantity</th>
+
                         <th>Date</th>
 
                     </tr>
+
             `;
 
 
@@ -600,7 +705,9 @@
                             </td>
 
                         </tr>
+
                     `;
+
                 }
             );
 
@@ -613,15 +720,19 @@
             ).innerHTML =
                 html;
 
+
         } catch (error) {
 
             console.log(error);
 
         }
+
     }
 
 
-    // Create Challenge
+    // =========================
+    // CREATE CHALLENGE - POST
+    // =========================
 
     document.getElementById(
         "challengeForm"
@@ -668,6 +779,7 @@
                     await fetch(
                         API + "/challenges",
                         {
+
                             method: "POST",
 
                             headers: {
@@ -695,6 +807,7 @@
                                 endDate
 
                             })
+
                         }
                     );
 
@@ -712,6 +825,7 @@
                         "Unable to create challenge.";
 
                     return;
+
                 }
 
 
@@ -728,6 +842,7 @@
 
                 loadChallenges();
 
+
             } catch (error) {
 
                 document.getElementById(
@@ -741,7 +856,9 @@
     );
 
 
-    // Load Challenges
+    // =========================
+    // LOAD CHALLENGES
+    // =========================
 
     async function loadChallenges() {
 
@@ -751,6 +868,7 @@
                 await fetch(
                     API + "/challenges"
                 );
+
 
             const challenges =
                 await response.json();
@@ -770,6 +888,7 @@
                     "No challenges found.";
 
                 return;
+
             }
 
 
@@ -780,12 +899,19 @@
                     <tr>
 
                         <th>ID</th>
+
                         <th>Name</th>
+
                         <th>Target</th>
+
                         <th>Start Date</th>
+
                         <th>End Date</th>
 
+                        <th>Actions</th>
+
                     </tr>
+
             `;
 
 
@@ -816,8 +942,31 @@
                                 ${challenge.endDate}
                             </td>
 
+                            <td>
+
+                                <button
+                                    class="action"
+                                    onclick="editChallenge(${challenge.id})">
+
+                                    Edit
+
+                                </button>
+
+
+                                <button
+                                    class="delete-button"
+                                    onclick="deleteChallenge(${challenge.id})">
+
+                                    Delete
+
+                                </button>
+
+                            </td>
+
                         </tr>
+
                     `;
+
                 }
             );
 
@@ -830,15 +979,220 @@
             ).innerHTML =
                 html;
 
+
         } catch (error) {
 
             console.log(error);
 
         }
+
     }
 
 
-    // Load Participations
+    // =========================
+    // EDIT CHALLENGE - PUT
+    // =========================
+
+    async function editChallenge(id) {
+
+        const challengeName =
+            prompt(
+                "Enter challenge name:"
+            );
+
+
+        if (challengeName === null) {
+            return;
+        }
+
+
+        const description =
+            prompt(
+                "Enter challenge description:"
+            );
+
+
+        if (description === null) {
+            return;
+        }
+
+
+        const targetReduction =
+            prompt(
+                "Enter target reduction percentage:"
+            );
+
+
+        if (targetReduction === null) {
+            return;
+        }
+
+
+        const startDate =
+            prompt(
+                "Enter start date (YYYY-MM-DD):"
+            );
+
+
+        if (startDate === null) {
+            return;
+        }
+
+
+        const endDate =
+            prompt(
+                "Enter end date (YYYY-MM-DD):"
+            );
+
+
+        if (endDate === null) {
+            return;
+        }
+
+
+        try {
+
+            const response =
+                await fetch(
+                    API +
+                    "/challenges/" +
+                    id,
+                    {
+
+                        method: "PUT",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+
+                            challengeName:
+                            challengeName,
+
+                            description:
+                            description,
+
+                            targetReduction:
+                                Number(
+                                    targetReduction
+                                ),
+
+                            startDate:
+                            startDate,
+
+                            endDate:
+                            endDate
+
+                        })
+
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                alert(
+                    data.error ||
+                    "Unable to update challenge."
+                );
+
+                return;
+
+            }
+
+
+            alert(
+                "Challenge updated successfully!"
+            );
+
+
+            loadChallenges();
+
+
+        } catch (error) {
+
+            alert(
+                "Unable to connect to server."
+            );
+
+        }
+
+    }
+
+
+    // =========================
+    // DELETE CHALLENGE - DELETE
+    // =========================
+
+    async function deleteChallenge(id) {
+
+        const confirmed =
+            confirm(
+                "Are you sure you want to delete this challenge?"
+            );
+
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        try {
+
+            const response =
+                await fetch(
+                    API +
+                    "/challenges/" +
+                    id,
+                    {
+
+                        method: "DELETE"
+
+                    }
+                );
+
+
+            const data =
+                await response.text();
+
+
+            if (!response.ok) {
+
+                alert(
+                    "Unable to delete challenge."
+                );
+
+                return;
+
+            }
+
+
+            alert(data);
+
+
+            loadChallenges();
+
+
+        } catch (error) {
+
+            alert(
+                "Unable to connect to server."
+            );
+
+        }
+
+    }
+
+
+    // =========================
+    // LOAD PARTICIPATIONS
+    // =========================
 
     async function loadParticipations() {
 
@@ -848,6 +1202,7 @@
                 await fetch(
                     API + "/participations"
                 );
+
 
             const participations =
                 await response.json();
@@ -861,6 +1216,7 @@
                     "No participation records found.";
 
                 return;
+
             }
 
 
@@ -871,12 +1227,19 @@
                     <tr>
 
                         <th>ID</th>
+
                         <th>Household ID</th>
+
                         <th>Challenge ID</th>
+
                         <th>Progress</th>
+
                         <th>Status</th>
 
+                        <th>Action</th>
+
                     </tr>
+
             `;
 
 
@@ -907,8 +1270,22 @@
                                 ${participation.status}
                             </td>
 
+                            <td>
+
+                                <button
+                                    class="delete-button"
+                                    onclick="deleteParticipation(${participation.id})">
+
+                                    Delete
+
+                                </button>
+
+                            </td>
+
                         </tr>
+
                     `;
+
                 }
             );
 
@@ -921,15 +1298,83 @@
             ).innerHTML =
                 html;
 
+
         } catch (error) {
 
             console.log(error);
 
         }
+
     }
 
 
-    // Load Leaderboard
+    // =========================
+    // DELETE PARTICIPATION
+    // =========================
+
+    async function deleteParticipation(id) {
+
+        const confirmed =
+            confirm(
+                "Are you sure you want to delete this household participation?"
+            );
+
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        try {
+
+            const response =
+                await fetch(
+                    API +
+                    "/participations/" +
+                    id,
+                    {
+
+                        method: "DELETE"
+
+                    }
+                );
+
+
+            const data =
+                await response.text();
+
+
+            if (!response.ok) {
+
+                alert(
+                    "Unable to delete participation."
+                );
+
+                return;
+
+            }
+
+
+            alert(data);
+
+
+            loadParticipations();
+
+
+        } catch (error) {
+
+            alert(
+                "Unable to connect to server."
+            );
+
+        }
+
+    }
+
+
+    // =========================
+    // LOAD LEADERBOARD
+    // =========================
 
     async function loadLeaderboard() {
 
@@ -939,6 +1384,7 @@
                 await fetch(
                     API + "/leaderboard"
                 );
+
 
             const data =
                 await response.json();
@@ -952,6 +1398,7 @@
                     "Leaderboard data will appear after monthly activity is recorded.";
 
                 return;
+
             }
 
 
@@ -962,12 +1409,17 @@
                     <tr>
 
                         <th>Rank</th>
+
                         <th>Household ID</th>
+
                         <th>Previous Footprint</th>
+
                         <th>Current Footprint</th>
+
                         <th>Reduction</th>
 
                     </tr>
+
             `;
 
 
@@ -1001,7 +1453,9 @@
                             </td>
 
                         </tr>
+
                     `;
+
                 }
             );
 
@@ -1014,13 +1468,19 @@
             ).innerHTML =
                 html;
 
+
         } catch (error) {
 
             console.log(error);
 
         }
+
     }
 
+
+    // =========================
+    // LOGOUT
+    // =========================
 
     function logout() {
 
@@ -1031,6 +1491,10 @@
 
     }
 
+
+    // =========================
+    // INITIAL LOAD
+    // =========================
 
     loadUsers();
 
@@ -1044,7 +1508,9 @@
 
     loadLeaderboard();
 
+
 </script>
+
 
 </body>
 
